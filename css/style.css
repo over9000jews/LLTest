@@ -20,12 +20,16 @@ html,body {
 .dna{
 	max-width: 500px;
 	margin: 0 auto;
+	transform-style: preserve-3d;
 }
 
 .dna .block{
 	margin: .2rem 0;
 	font-weight: bold;
 	text-align: center;
+	transform-style: preserve-3d;
+	animation: rot 40s linear infinite;
+	position: relative;
 }
 
 .button.radius{
