@@ -27,7 +27,7 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll) 
 	//for highlighting
 	$scope.isInGeneRange= function(x){
 		if($scope.selectedGeneRegion != null)
-			return (x < $scope.selectedGeneRegion.start  ) && (x < $scope.selectedGeneRegion.end  );
+			return (x > $scope.selectedGeneRegion.start  ) && (x < $scope.selectedGeneRegion.end  );
 		
 		
 		if(	$scope.selectedGenome != null)
