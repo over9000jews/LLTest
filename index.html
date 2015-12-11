@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lite Letter's DNA</title>
+	<!--Made by Patrick Lai (patrick@originoffice.com)-->
+	<meta name="description" content="Life Letter DNA"/>
+	
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/css/foundation.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+	<script src="js/owl.min.js"></script>
+	
+	<script src="js/testData.js"></script>
+	<script src="js/cApp.js"></script>
+	<script src="js/cCtrl.js"></script>
+	<script src="js/owl.js"></script>
+
+</head>
+<body ng-app="cApp" ng-controller="cCtrl" class="row" style="padding: 50px 0 20px 0;">
+	
+	<div class="large-12 mobile-12 columns centerText" ><h1>Life Letters DNA Viewer</h1></div>
+	
+	<div class="large-3 mobile-3 columns">
+		<div class="leftPanel">
+			<h5>Different Genes <span class="smallFont">(from referrence)</span></h5>
+			<select name="genomeSelect" id="genomeSelect" ng-options="genome.index for genome in selectedUser.sequence track by genome.index"  ng-change="scrollToGenome()" ng-model="selectedGenome"></select>
+			<div ng-hide="selectedUser == null">
+				<strong>User info:<br/></strong>
+				<strong>{{selectedUser.firstName}} {{selectedUser.lastName}}<br/></strong>
+				{{selectedUser.address.street}} {{selectedUser.address.suburb}} {{selectedUser.address.postcode}} {{selectedUser.address.state}}<br/>
+				Ethnicity: {{selectedUser.ethnicity}}<br/>
+				DOB: {{selectedUser.dob}}<br/>
+				{{selectedUser.gender}}<br/>
+				ID: {{selectedUser.id}}<br/>
+			</div>
+		</div>
+	</div>
+	
+    <div class="dnaWrapper large-6 mobile-6 columns">
+		<h5 class="centerText">{{selectedUser.firstName}} {{selectedUser.lastName}}'s Sequence</h5>
+        <div class='dna'>
+            <div class='block row' ng-repeat="block in liveGenome track by $index">
+                <span id="{{$index*2}}" class="leftSide large-1 columns small-1">{{$index*2}} &nbsp;</span>
+                <span class="large-5 columns small-3 {{block[0]}}" ng-class="{'highlightGene': isInGeneRange($index*2)}" >{{block[0]}}</span>
+                <span class="large-5 columns small-3 {{block[1]}}" ng-class="{'highlightGene': isInGeneRange($index*2+1)}">{{block[1]}}</span>
+                <span id="{{($index*2)+1}}" class="rightSide large-1 columns small-1">{{($index*2)+1}} &nbsp;</span>
+            </div>
+        </div>
+    </div>
+	
+	<div class="large-3 mobile-3 columns">
+		<div class="rightPanel">
+			<h5>Gene Regions</h5>
+			<select name="geneRegionSelect" id="geneRegionSelect" ng-options="genome.name for genome in geneRegions track by genome.start" ng-change="scrollToGeneRegion()" ng-model="selectedGeneRegion"></select>
+			<div ng-hide="selectedGeneRegion == null">
+				<strong>description:<br/></strong>
+				{{selectedGeneRegion.description}}
+			</div>
+		</div>
+	</div>
+	
+	<div class="large-12 mobile-12 columns fixed bottom bottomBit">
+		Select User (double click)
+		<nav id="owl-demo" class="owl-carousel owl-theme">
+		  <div class="item" ng-repeat="user in users track by $index">
+				<strong>{{user.firstName}} {{user.lastName}}<br/></strong>
+				{{user.address.street}} {{user.address.suburb}} {{user.address.postcode}} {{user.address.state}}<br/>
+				Ethnicity: {{user.ethnicity}}<br/>
+				DOB: {{user.dob}}<br/>
+				{{user.gender}}<br/>
+				ID: {{user.id}}<br/>
+				<a class="button small radius" ng-click="selectUser(user)">Select User</a>
+		  </div>
+		</nav>
+	</div>
+ 
+	
+</body>
+</html>

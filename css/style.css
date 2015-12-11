@@ -1,0 +1,100 @@
+
+html .row{
+	max-width: 100%;	
+}
+
+html,body {
+	height: 100%;
+	background-color: #e6f6fb;
+	font-family: arial;
+}
+
+.dnaWrapper{
+	margin-bottom: 360px;
+}
+
+.dna{
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.dna .block{
+	margin: .2rem 0;
+	font-weight: bold;
+	text-align: center;
+}
+
+.button.radius{
+	border-radius: 10%;
+}
+
+.dna .block span.leftSide {
+	background: teal;
+}
+.dna .block span.rightSide {
+	background-color: teal;
+}
+
+.dna .block span.a {
+	background-color: red;
+}
+.dna .block span.t {
+	background-color: yellow;
+}
+
+.dna .block span.g {
+	background-color: purple;
+}
+.dna .block span.c {
+	background-color: green;
+}
+
+.smallFont{
+	font-size: 70%;
+}
+
+.bottomBit{
+	text-align: center;  background-color: white;
+	height: 320px;
+}
+
+.dna .highlightGene{
+	-webkit-box-shadow: 0px 0px 5px 5px rgba(238,255,0,1);
+	-moz-box-shadow: 0px 0px 5px 5px10px rgba(238,255,0,1);
+	box-shadow: 0px 0px 5px 5px rgba(238,255,0,1);
+	border: 1px solid yellow;
+}
+
+#owl-demo .item{
+    background: #42bdc2;
+    padding: 30px 0px;
+    margin: 5px;
+    color: #FFF;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.owl-buttons div{
+	width: 50%;
+	display: inline-block;
+	background-color: #eee;
+	cursor: pointer;
+}
+
+.owl-buttons div:hover{
+	background-color: #aaa;
+}
+
+.centerText{
+	text-align: center;
+}
+
+.fixed{
+	position: fixed;
+}
+
+.bottom{
+	 bottom: 0;
+}
