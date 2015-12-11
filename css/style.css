@@ -9,6 +9,10 @@ html,body {
 	font-family: arial;
 }
 
+.leftPanel, .rightPanel{
+	position: fixed;
+}
+
 .dnaWrapper{
 	margin-bottom: 360px;
 }

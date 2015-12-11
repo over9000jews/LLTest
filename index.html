@@ -24,6 +24,7 @@
 	<div class="large-12 mobile-12 columns centerText" ><h1>Life Letters DNA Viewer</h1></div>
 	
 	<div class="large-3 mobile-3 columns">
+		&nbsp;
 		<div class="leftPanel">
 			<h5>Different Genes <span class="smallFont">(from referrence)</span></h5>
 			<select name="genomeSelect" id="genomeSelect" ng-options="genome.index for genome in selectedUser.sequence track by genome.index"  ng-change="scrollToGenome()" ng-model="selectedGenome"></select>
@@ -52,6 +53,7 @@
     </div>
 	
 	<div class="large-3 mobile-3 columns">
+		&nbsp;
 		<div class="rightPanel">
 			<h5>Gene Regions</h5>
 			<select name="geneRegionSelect" id="geneRegionSelect" ng-options="genome.name for genome in geneRegions track by genome.start" ng-change="scrollToGeneRegion()" ng-model="selectedGeneRegion"></select>
