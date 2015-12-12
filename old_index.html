@@ -9,49 +9,31 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/css/foundation.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/3d.css">
-	<link rel="stylesheet" type="text/css" href="css/rangeSlider.css">
+	<link rel="stylesheet" type="text/css" href="css/animation.css">
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r58/three.min.js"></script>
-	<script src="js/three/threex.dynamictexture.js"></script>
-	
-	<!--<script src="js/three/trackball.js"></script>-->
-	
 	<script src="js/owl.min.js"></script>
+	
 	<script src="js/testData.js"></script>
 	<script src="js/cApp.js"></script>
-	<script src="js/three/cCtrl3d.js"></script>
+	<script src="js/cCtrl.js"></script>
 	<script src="js/owl.js"></script>
-	<script src="js/three/3d.js"></script>
 
 </head>
 <body ng-app="cApp" ng-controller="cCtrl" class="row">
-
-	<div id="threeDNA" style="position: fixed;">
-		
-	</div>
-	
 	
 	<header class="large-12 mobile-12 columns glass">
 		Company Name
 	</header>
 
-	<div class="large-12 mobile-12 columns centerText glass"  style="margin-top: 50px; position: fixed; z-index: 100; border-radius: 10px; width: 900px; left: calc(50% - 450px);">
-		<h1>Life Letters DNA Viewer</h1>
-		<h5 class="centerText" ng-hide="selectedUser == null">{{selectedUser.firstName}} {{selectedUser.lastName}}'s Sequence</h5>
-		<h5 class="centerText" ng-hide="selectedUser != null">Referrence Sequence</h5>
-		<br/>
-	</div>
+	<div class="large-12 mobile-12 columns centerText"  style="margin-top: 50px;"><h1>Life Letters DNA Viewer</h1></div>
 
 	<div class="large-3 mobile-3 columns">
 		&nbsp;
-		<div class="leftPanel glass" style="margin-top: 10rem; position: fixed; z-index: 100;">
-
-
+		<div class="leftPanel glass">
 			<h5>Different Genes</h5>
-			<select name="genomeSelect" id="genomeSelect" ng-options="genome.index for genome in selectedUser.sequence | orderBy: genome.index"  ng-change="scrollToGenome()" ng-model="selectedGenome">
+			<select name="genomeSelect" id="genomeSelect" ng-options="genome.index for genome in selectedUser.sequence track by genome.index"  ng-change="scrollToGenome()" ng-model="selectedGenome">
 			   <option value=""> Please Choose </option>
 			</select>
 			<div ng-hide="selectedUser == null" style="margin-top: 1em;">
@@ -60,26 +42,28 @@
 						&#9873 : {{selectedUser.ethnicity}} {{selectedUser.gender}}<br/>
 						&#127874 : {{selectedUser.dob | date}}<br/>
 						ID: {{selectedUser.id}}<br/>
-						<br/>
-						<select  name="comapareUser" id="comapareUser" ng-options="user.firstName+' '+user.lastName for user in users" ng-change="compareUsers()" ng-model="comparedUser" style="max-width: 250px;">
-						   <option value=""> Compare this person </option>
-						</select>
-						
-						<span ng-show="comparisonResult"> {{comparisonResult}}%&nbsp;Alike</span>
-			
-			</div>
-					
+					</div>
 			</div>
 		</div>
 	</div>
 	
     <div class="dnaWrapper large-6 mobile-6 columns">
+		<h5 class="centerText" ng-hide="selectedUser == null">{{selectedUser.firstName}} {{selectedUser.lastName}}'s Sequence</h5>
+		<h5 class="centerText" ng-hide="selectedUser != null">Referrence Sequence</h5>
 		<br/>
+        <div class='dna'>
+            <div class='block row' ng-repeat="block in liveGenome track by $index">
+                <span id="{{$index*2}}" class="leftSide large-1 columns small-1"><div>{{$index*2}} &nbsp;</div></span>
+                <span class="large-5 columns small-5 {{block[0]}}" ng-class="{'highlightGene': isInGeneRange($index*2)}" >{{block[0]}}</span>
+                <span class="large-5 columns small-5 {{block[1]}}" ng-class="{'highlightGene': isInGeneRange($index*2+1)}">{{block[1]}}</span>
+                <span id="{{($index*2)+1}}" class="rightSide large-1 columns small-1"><div>{{($index*2)+1}} &nbsp;</div></span>
+            </div>
+        </div>
     </div>
 	
 	<div class="large-3 mobile-3 columns">
 		&nbsp;
-		<div class="rightPanel glass" style="margin-top: 10rem; position; fixed: z-index: 100;">
+		<div class="rightPanel glass">
 			<h5>Gene Regions</h5>
 			<select name="geneRegionSelect" id="geneRegionSelect" ng-options="genome.name for genome in geneRegions track by genome.start" ng-change="scrollToGeneRegion()" ng-model="selectedGeneRegion">
 			   <option value=""> Please Choose </option>
@@ -90,22 +74,12 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="large-12 mobile-12 columns fixed bottom bottomBit glass" style="padding: 1rem; height: 350px;">
-		<div class="row">
-			<div class="large-1 mobile-1 columns" style="line-height: 2.5em;">
-				Sroll the DNA :
-			</div>
-			<div class="large-10 mobile-10 columns">
-				<input ng-model="lookingAt" ng-change="scrollToGene(lookingAt)" type="range" min="0" max="{{referrenceGenome.length*2-1}}" style="width: 100%;"/>
-			</div>
-			<div class="large-1 mobile-1 columns">
-				<input ng-model="lookingAt" ng-change="scrollToGene(lookingAt)" type="text" min="0" max="{{referrenceGenome.length*2-1}}" style="width: 100%;"/>
-			</div>
-		</div>
-		
-		<nav id="owl-demo" class="owl-carousel owl-theme">
-			<div class="item" ng-repeat="user in users track by $index">
+	
+	<div class="large-12 mobile-12 columns fixed bottom bottomBit glass" style="padding: 1rem;">
+	
+		<div class="wrapper-with-margin">
+			<nav id="owl-demo" class="owl-carousel owl-theme">
+			  <div class="item" ng-repeat="user in users track by $index">
 			  
 				<div class="row">
 					<div class="large-3 mobile-3 columns">
@@ -117,15 +91,15 @@
 						&#9993 : {{user.address.street}} {{user.address.suburb}} {{user.address.postcode}} {{user.address.state}}<br/>
 						&#9873 : {{user.ethnicity}}<br/>
 						&#127874 : {{user.dob | date}}<br/>
-						ID: {{user.id}}<br/>						
+						ID: {{user.id}}<br/>
 					</div>
 				</div>
-				
 			</div>
 				
+		  </div>
 		</nav>
 	</div>
  
-
+	
 </body>
 </html>
