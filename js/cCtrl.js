@@ -55,6 +55,10 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll) 
        $location.hash(gene);
        anchorSmoothScroll.scrollTo(gene);
      };
+	 
+	 $scope.getGenderPic = function(gender){
+		 return gender == "male" ? "static/male.png" : "static/female.png";
+	 }
 		
 	$http({
 	  method: 'GET',

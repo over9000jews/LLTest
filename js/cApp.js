@@ -1,5 +1,19 @@
 var cApp= angular.module('cApp', []);
 
+cApp.filter('gender', function() {
+  return function(input) {
+    return input == "male" ? '\u2642' : '\u2640';
+  };
+});
+
+cApp.filter('date', function() {
+  return function(input) {
+	 var date = new Date(input);
+     return date.toDateString();
+  };
+});
+
+
 cApp.service('anchorSmoothScroll', function(){
     
     this.scrollTo = function(eID) {
