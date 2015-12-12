@@ -56,7 +56,7 @@ cApp.service('anchorSmoothScroll', function(){
         
         function elmYPosition(eID) {
             var elm = document.getElementById(eID);
-            var y = elm.offsetTop - 50;
+            var y = elm.offsetTop - $( window ).height()/4;
             var node = elm;
             while (node.offsetParent && node.offsetParent != document.body) {
                 node = node.offsetParent;

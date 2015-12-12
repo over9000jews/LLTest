@@ -21,23 +21,28 @@
 	<script src="js/owl.js"></script>
 
 </head>
-<body ng-app="cApp" ng-controller="cCtrl" class="row" style="padding: 50px 0 20px 0;">
+<body ng-app="cApp" ng-controller="cCtrl" class="row">
 	
-	<div class="large-12 mobile-12 columns centerText" ><h1>Life Letters DNA Viewer</h1></div>
-	
+	<header class="large-12 mobile-12 columns glass">
+		Company Name
+	</header>
+
+	<div class="large-12 mobile-12 columns centerText"  style="margin-top: 50px;"><h1>Life Letters DNA Viewer</h1></div>
+
 	<div class="large-3 mobile-3 columns">
 		&nbsp;
 		<div class="leftPanel glass">
 			<h5>Different Genes</h5>
-			<select name="genomeSelect" id="genomeSelect" ng-options="genome.index for genome in selectedUser.sequence track by genome.index"  ng-change="scrollToGenome()" ng-model="selectedGenome"></select>
-			<div ng-hide="selectedUser == null">
-				<strong>User info:<br/></strong>
-				<strong>{{selectedUser.firstName}} {{selectedUser.lastName}}<br/></strong>
-				{{selectedUser.address.street}} {{selectedUser.address.suburb}} {{selectedUser.address.postcode}} {{selectedUser.address.state}}<br/>
-				Ethnicity: {{selectedUser.ethnicity}}<br/>
-				DOB: {{selectedUser.dob}}<br/>
-				{{selectedUser.gender}}<br/>
-				ID: {{selectedUser.id}}<br/>
+			<select name="genomeSelect" id="genomeSelect" ng-options="genome.index for genome in selectedUser.sequence track by genome.index"  ng-change="scrollToGenome()" ng-model="selectedGenome">
+			   <option value=""> Please Choose </option>
+			</select>
+			<div ng-hide="selectedUser == null" style="margin-top: 1em;">
+				<strong>Selected User: {{selectedUser.firstName}} {{selectedUser.lastName}} {{selectedUser.gender | gender}}<br/><br/></strong>
+						&#9993 : {{selectedUser.address.street}} {{selectedUser.address.suburb}} {{selectedUser.address.postcode}} {{selectedUser.address.state}}<br/>
+						&#9873 : {{selectedUser.ethnicity}} {{selectedUser.gender}}<br/>
+						&#127874 : {{selectedUser.dob | date}}<br/>
+						ID: {{selectedUser.id}}<br/>
+					</div>
 			</div>
 		</div>
 	</div>
@@ -45,7 +50,7 @@
     <div class="dnaWrapper large-6 mobile-6 columns">
 		<h5 class="centerText" ng-hide="selectedUser == null">{{selectedUser.firstName}} {{selectedUser.lastName}}'s Sequence</h5>
 		<h5 class="centerText" ng-hide="selectedUser != null">Referrence Sequence</h5>
-
+		<br/>
         <div class='dna'>
             <div class='block row' ng-repeat="block in liveGenome track by $index">
                 <span id="{{$index*2}}" class="leftSide large-1 columns small-1"><div>{{$index*2}} &nbsp;</div></span>
@@ -60,8 +65,10 @@
 		&nbsp;
 		<div class="rightPanel glass">
 			<h5>Gene Regions</h5>
-			<select name="geneRegionSelect" id="geneRegionSelect" ng-options="genome.name for genome in geneRegions track by genome.start" ng-change="scrollToGeneRegion()" ng-model="selectedGeneRegion"></select>
-			<div ng-hide="selectedGeneRegion == null" class="descriptionText">
+			<select name="geneRegionSelect" id="geneRegionSelect" ng-options="genome.name for genome in geneRegions track by genome.start" ng-change="scrollToGeneRegion()" ng-model="selectedGeneRegion">
+			   <option value=""> Please Choose </option>
+			</select>
+			<div ng-hide="selectedGeneRegion == null" class="descriptionText"  style="margin-top: 1em;">
 				<strong>description:<br/></strong>
 				{{selectedGeneRegion.description}}
 			</div>
@@ -76,8 +83,8 @@
 			  
 				<div class="row">
 					<div class="large-3 mobile-3 columns">
-						<img ng-src="{{getGenderPic(user.gender)}}" style="width: 100px; margin-bottom: 1rem;"/>
-						<a class="button small radius" ng-click="selectUser(user)">Select User</a>
+						<img ng-src="{{getGenderPic(user.gender)}}" style="width: 100px; margin-bottom: 1rem;"/><br/>
+						<a class="button small radius" ng-click="selectUser(user)" style="margin: 0 auto;">Select User</a>
 					</div>
 					<div  class="large-9 mobile-9 columns" style="margin: 1rem 0;">
 						<strong>{{user.firstName}} {{user.lastName}} {{user.gender | gender}}<br/></strong>

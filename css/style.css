@@ -11,6 +11,19 @@ h1,h2,h3,h4,h5{
 	font-weight: 800;
 }
 
+header{
+	height: 25px;
+	position: fixed;
+	z-index: 100;
+}
+
+.companyLogo{
+	position: fixed;
+	top: 2em;
+	left: 2rem;
+	width: 80px;
+}
+
 html,body {
 	height: 100%;
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e1ffff+0,e1ffff+7,e0f9ef+20,e6f8fd+42,c8eefb+64,bee4f8+75,b1d8f5+100 */
@@ -49,7 +62,6 @@ html,body {
 	-webkit-box-shadow: 10px 10px 38px 0px rgba(0,0,0,0.3);
 	-moz-box-shadow: 10px 10px 38px 0px rgba(0,0,0,0.3);
 	box-shadow: 10px 10px 38px 0px rgba(0,0,0,0.3);
-	border-radius: 10px;
 	border: 1px solid #eee;
 }
 
@@ -57,17 +69,19 @@ html,body {
 	position: fixed;
 	padding: 5rem;
 	height: 500px;
-	min-width: 300px;
+	min-width: 350px;
 	max-width: 33%;
 	overflow: hidden;
 }
 
 .leftPanel{
 	left: 0;
+	border-radius: 0 10px 10px 0;
 }
 
 .rightPanel{
 	right: 0;
+	border-radius: 10px 0 0 10px;
 }
 
 .dnaWrapper{
@@ -155,6 +169,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0027c46d', e
 	text-align: center;
 	height: 320px;
 	top: auto;
+	border-radius: 10px 10px 0 0;
 }
 
 .dna .highlightGene{
