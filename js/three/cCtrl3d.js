@@ -24,6 +24,8 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll, 
 	$scope.selectedGenome = null;
 	$scope.selectedGeneRegion = null;
 	$scope.lookingAt = 0;
+	$scope.comparedUser;
+	$scope.comparisonResult;
 
 	//for highlighting
 	$scope.isInGeneRange= function(x){
@@ -92,6 +94,35 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll, 
 	$scope.updateThreeDNA = function(){
 		updateThreeDNA($scope.referrenceGenome,$scope.liveGenome);
 	};
+	
+	$scope.compareUsers = function(){
+		
+		console.log($scope.comparedUser);
+		
+		var counter = 0;
+		
+		var array1 = new Array($scope.selectedUser.sequence.length);
+		var array2 = new Array($scope.selectedUser.sequence.length);
+
+		//put in values
+		for(block in $scope.selectedUser.sequence){
+			array1[$scope.selectedUser.sequence[block].index] = $scope.selectedUser.sequence[block].letter;
+		}
+		
+		//put in values
+		for(block in $scope.comparedUser.sequence){
+			array2[$scope.comparedUser.sequence[block].index] = $scope.comparedUser.sequence[block].letter;
+		}
+		
+		//compare the arrays
+		for(i in array1){
+			if(array1[i] != array2[i]) counter++;
+		}
+		
+		$scope.comparisonResult = Math.ceil(100-((counter/array1.length) * 1000));
+		
+		console.log($scope.comparisonResult);
+	}
 
 	
 	$scope.updateDNA = function(userSequence){

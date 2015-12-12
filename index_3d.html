@@ -20,7 +20,6 @@
 	<!--<script src="js/three/trackball.js"></script>-->
 	
 	<script src="js/owl.min.js"></script>
-
 	<script src="js/testData.js"></script>
 	<script src="js/cApp.js"></script>
 	<script src="js/three/cCtrl3d.js"></script>
@@ -39,7 +38,7 @@
 		Company Name
 	</header>
 
-	<div class="large-12 mobile-12 columns centerText"  style="margin-top: 50px; position: fixed; z-index: 100;">
+	<div class="large-12 mobile-12 columns centerText glass"  style="margin-top: 50px; position: fixed; z-index: 100; border-radius: 10px; width: 900px; left: calc(50% - 450px);">
 		<h1>Life Letters DNA Viewer</h1>
 		<h5 class="centerText" ng-hide="selectedUser == null">{{selectedUser.firstName}} {{selectedUser.lastName}}'s Sequence</h5>
 		<h5 class="centerText" ng-hide="selectedUser != null">Referrence Sequence</h5>
@@ -52,7 +51,7 @@
 
 
 			<h5>Different Genes</h5>
-			<select name="genomeSelect" id="genomeSelect" ng-options="genome.index for genome in selectedUser.sequence track by genome.index"  ng-change="scrollToGenome()" ng-model="selectedGenome">
+			<select name="genomeSelect" id="genomeSelect" ng-options="genome.index for genome in selectedUser.sequence | orderBy: genome.index"  ng-change="scrollToGenome()" ng-model="selectedGenome">
 			   <option value=""> Please Choose </option>
 			</select>
 			<div ng-hide="selectedUser == null" style="margin-top: 1em;">
@@ -61,7 +60,15 @@
 						&#9873 : {{selectedUser.ethnicity}} {{selectedUser.gender}}<br/>
 						&#127874 : {{selectedUser.dob | date}}<br/>
 						ID: {{selectedUser.id}}<br/>
-					</div>
+						<br/>
+						<select  name="comapareUser" id="comapareUser" ng-options="user.firstName+' '+user.lastName for user in users" ng-change="compareUsers()" ng-model="comparedUser" style="max-width: 250px;">
+						   <option value=""> Compare this person </option>
+						</select>
+						
+						<span ng-show="comparisonResult"> {{comparisonResult}}%&nbsp;Alike</span>
+			
+			</div>
+					
 			</div>
 		</div>
 	</div>
@@ -85,7 +92,18 @@
 	</div>
 
 	<div class="large-12 mobile-12 columns fixed bottom bottomBit glass" style="padding: 1rem; height: 350px;">
-		<input ng-model="lookingAt" ng-change="scrollToGene(lookingAt)" type="range" min="0" max="{{referrenceGenome.length*2-1}}" style="width: 100%;"/>
+		<div class="row">
+			<div class="large-1 mobile-1 columns" style="line-height: 2.5em;">
+				Sroll the DNA :
+			</div>
+			<div class="large-10 mobile-10 columns">
+				<input ng-model="lookingAt" ng-change="scrollToGene(lookingAt)" type="range" min="0" max="{{referrenceGenome.length*2-1}}" style="width: 100%;"/>
+			</div>
+			<div class="large-1 mobile-1 columns">
+				<input ng-model="lookingAt" ng-change="scrollToGene(lookingAt)" type="text" min="0" max="{{referrenceGenome.length*2-1}}" style="width: 100%;"/>
+			</div>
+		</div>
+		
 		<nav id="owl-demo" class="owl-carousel owl-theme">
 			<div class="item" ng-repeat="user in users track by $index">
 			  
@@ -99,7 +117,7 @@
 						&#9993 : {{user.address.street}} {{user.address.suburb}} {{user.address.postcode}} {{user.address.state}}<br/>
 						&#9873 : {{user.ethnicity}}<br/>
 						&#127874 : {{user.dob | date}}<br/>
-						ID: {{user.id}}<br/>
+						ID: {{user.id}}<br/>						
 					</div>
 				</div>
 				
