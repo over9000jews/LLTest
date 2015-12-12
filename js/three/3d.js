@@ -13,12 +13,20 @@ function threeScrollToGene(gene){
 
 function setupMaterials(renderer){
 	
-	var blue = "#2194ce";
-	var yellow = '#e1c442';
-	var purple = '#7e41b3';
-	var green =  '#295c35';
+	var blue = "#50608F";
+	var brightBlue = "#7887AB"
+	var yellow = '#D4C26A';
+	var brightYellow = '#807615';
+	var purple = '#6F4D8F';
+	var brightPurple = '#9775AA';
+	var green =  '#499273';
+	var brightGreen =  '#CD6771';
 	var grey = '#656269';
-	
+	var highlight = '#eeeeee';
+	var highlight_solid = '#F6A4AC';
+	var textColor = "white";
+	var highlighted_textColor = "black";
+
 	//grey
 	var greyTexture= new THREEx.DynamicTexture(512,512);
 	var greyMaterial  = new THREE.MeshPhongMaterial({
@@ -26,7 +34,7 @@ function setupMaterials(renderer){
 	});
 	greyTexture.clear(grey);
 	greyTexture.context.font	= "bold 80px Arial";
-	greyTexture.drawText('', 32, 256, 'white');
+	greyTexture.drawText('', 32, 256, 'red');
 	greyTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 
 	//blue
@@ -36,18 +44,19 @@ function setupMaterials(renderer){
 	});
 	blueTexture.clear(blue);
 	blueTexture.context.font	= "bold 80px Arial";
-	blueTexture.drawText('a a a a a a a a a', 32, 256, 'white');
+	blueTexture.drawText('a a a a a a a a a', 32, 256, textColor);
 	blueTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 
 	//shinyBlue
 	var shinyBlueTexture	= new THREEx.DynamicTexture(512,512);
 	var shinyBlueMaterial   = new THREE.MeshPhongMaterial({
 		map : shinyBlueTexture.texture,
-		shininess: 0
+		specular: highlight,
+		shininess: 100
 	});
-	shinyBlueTexture.clear(blue);
+	shinyBlueTexture.clear(highlight_solid);
 	shinyBlueTexture.context.font	= "bold 80px Arial";
-	shinyBlueTexture.drawText('a a a a a a a a a', 32, 256, 'white');
+	shinyBlueTexture.drawText('a a a a a a a a a', 32, 256, highlighted_textColor);
 	shinyBlueTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 
 
@@ -58,18 +67,19 @@ function setupMaterials(renderer){
 	});
 	yellowTexture.clear(yellow);
 	yellowTexture.context.font	= "bold 80px Arial";
-	yellowTexture.drawText('t t t t t t t t t', 32, 256, 'white');
+	yellowTexture.drawText('t t t t t t t t t', 32, 256, textColor);
 	yellowTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 	
 	//shinyYellow
 	var shinyYellowTexture	= new THREEx.DynamicTexture(512,512);
 	var shinyYellowMaterial   = new THREE.MeshPhongMaterial({
 		map : shinyYellowTexture.texture,
-		shininess: 0
+		specular: highlight,
+		shininess: 100
 	});
-	shinyYellowTexture.clear(yellow);
+	shinyYellowTexture.clear(highlight_solid);
 	shinyYellowTexture.context.font	= "bold 80px Arial";
-	shinyYellowTexture.drawText('t t t t t t t t t', 32, 256, 'white');
+	shinyYellowTexture.drawText('t t t t t t t t t', 32, 256,highlighted_textColor);
 	shinyYellowTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 	
 	//purple
@@ -79,18 +89,19 @@ function setupMaterials(renderer){
 	});
 	purpleTexture.clear(purple);
 	purpleTexture.context.font = "bold 80px Arial";
-	purpleTexture.drawText('g g g g g g g g g', 32, 256, 'white');
+	purpleTexture.drawText('g g g g g g g g g', 32, 256, textColor);
 	purpleTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 
 	//shiny purple
 	var shinyPurpleTexture	= new THREEx.DynamicTexture(512,512);
 	var shinyPurpleMaterial   = new THREE.MeshPhongMaterial({
 		map : shinyPurpleTexture.texture,
-		shininess: 0
+		specular: highlight,
+		shininess: 100
 	});
-	shinyPurpleTexture.clear(purple);
+	shinyPurpleTexture.clear(highlight_solid);
 	shinyPurpleTexture.context.font = "bold 80px Arial";
-	shinyPurpleTexture.drawText('g g g g g g g g g', 32, 256, 'white');
+	shinyPurpleTexture.drawText('g g g g g g g g g', 32, 256, highlighted_textColor);
 	shinyPurpleTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 
 	
@@ -101,18 +112,20 @@ function setupMaterials(renderer){
 	});
 	greenTexture.clear(green);
 	greenTexture.context.font	= "bold 80px Arial";
-	greenTexture.drawText('c c c c c c c c c', 32, 256, 'white');
+	greenTexture.drawText('c c c c c c c c c', 32, 256, textColor);
 	greenTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 	
 	//shiny green
 	var shinyGreenTexture	= new THREEx.DynamicTexture(512,512);
 	var shinyGreenMaterial   = new THREE.MeshPhongMaterial({
 		map : shinyGreenTexture.texture,
-		shininess: 0
+		specular: highlight,
+		shininess: 100
 	});
-	shinyGreenTexture.clear(purple);
+	
+	shinyGreenTexture.clear(highlight_solid);
 	shinyGreenTexture.context.font = "bold 80px Arial";
-	shinyGreenTexture.drawText('c c c c c c c c c', 32, 256, 'white');
+	shinyGreenTexture.drawText('c c c c c c c c c', 32, 256, highlighted_textColor);
 	shinyGreenTexture.texture.anisotropy = renderer.getMaxAnisotropy();
 	
 	var materials = {

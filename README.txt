@@ -25,4 +25,6 @@ Deved on 1440p monitor, anything less than 1080p may not be so good..
 
 Navigations at the bottom, once a user is selected you may browse his/her genes/geneRegions from floating panels on left and right.
 
+genes of Interest will be highlighted in bright red with black text in contrast to the .. other color-coded a,t,g,c's.
+
 cheers
