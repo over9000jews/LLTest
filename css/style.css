@@ -67,7 +67,7 @@ html,body {
 
 .leftPanel, .rightPanel{
 	position: fixed;
-	padding: 5rem;
+	padding: 3rem;
 	height: 500px;
 	min-width: 350px;
 	max-width: 33%;

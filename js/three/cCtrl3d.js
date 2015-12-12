@@ -26,6 +26,7 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll, 
 	$scope.lookingAt = 0;
 	$scope.comparedUser;
 	$scope.comparisonResult;
+	$scope.comparisonArray;
 
 	//for highlighting
 	$scope.isInGeneRange= function(x){
@@ -62,6 +63,16 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll, 
 	   threeScrollToGene(gene);
      };
 	 
+	 $scope.zoomIn = function(){
+		 camera.position.z -= 2;
+
+	 }
+	 
+	 $scope.zoomOut = function(){
+		 camera.position.z += 2;
+
+	 }
+	 
 	 $scope.getGenderPic = function(gender){
 		 return gender == "male" ? "static/male.png" : "static/female.png";
 	 }
@@ -94,34 +105,43 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll, 
 	$scope.updateThreeDNA = function(){
 		updateThreeDNA($scope.referrenceGenome,$scope.liveGenome);
 	};
-	
+		
 	$scope.compareUsers = function(){
-		
-		console.log($scope.comparedUser);
-		
+				
 		var counter = 0;
 		
-		var array1 = new Array($scope.selectedUser.sequence.length);
-		var array2 = new Array($scope.selectedUser.sequence.length);
+		var array1 = new Array($scope.data.referrenceGenome.length);
+		var array2 = new Array($scope.data.referrenceGenome.length);
 
 		//put in values
-		for(block in $scope.selectedUser.sequence){
-			array1[$scope.selectedUser.sequence[block].index] = $scope.selectedUser.sequence[block].letter;
+		for(block in $scope.data.referrenceGenome){
+			if($scope.selectedUser.sequence[block] != undefined){
+				array1[$scope.selectedUser.sequence[block].index] = $scope.selectedUser.sequence[block].letter;
+			}
 		}
 		
 		//put in values
-		for(block in $scope.comparedUser.sequence){
-			array2[$scope.comparedUser.sequence[block].index] = $scope.comparedUser.sequence[block].letter;
+		for(block in $scope.data.referrenceGenome){
+			if($scope.comparedUser.sequence[block] != undefined)
+				array2[$scope.comparedUser.sequence[block].index] = $scope.comparedUser.sequence[block].letter;
 		}
 		
+		$scope.comparisonArray = new Array();
+		
 		//compare the arrays
-		for(i in array1){
-			if(array1[i] != array2[i]) counter++;
+		for(var i  = 0 ; i < array1.length; i++){
+			if(array1[i] != array2[i]){
+				counter++;
+				//store theComparedUser's gene in an array
+				var g1 = array1[i] ? array1[i] : $scope.data.referrenceGenome[i];
+				var g2 = array2[i] ? array2[i] : $scope.data.referrenceGenome[i];
+
+				$scope.comparisonArray.push([ i, g1, g2]);
+			}
 		}
 		
 		$scope.comparisonResult = Math.ceil(100-((counter/array1.length) * 1000));
 		
-		console.log($scope.comparisonResult);
 	}
 
 	

@@ -13,7 +13,6 @@ cApp.filter('date', function() {
   };
 });
 
-
 cApp.service('anchorSmoothScroll', function(){
     
     this.scrollTo = function(eID) {

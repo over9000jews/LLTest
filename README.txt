@@ -27,4 +27,6 @@ Navigations at the bottom, once a user is selected you may browse his/her genes/
 
 genes of Interest will be highlighted in bright red with black text in contrast to the .. other color-coded a,t,g,c's.
 
+For the Zoom in and out.. I had trackball three.js thing installed but it felt like the user had too much control.
+
 cheers
