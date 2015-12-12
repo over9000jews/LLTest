@@ -69,7 +69,7 @@
 			   <option value=""> Please Choose </option>
 			</select>
 			<div ng-hide="selectedGeneRegion == null" class="descriptionText"  style="margin-top: 1em;">
-				<strong>description:<br/></strong>
+				<strong>Genes : {{selectedGeneRegion.start}} - {{selectedGeneRegion.end}}<br/></strong>
 				{{selectedGeneRegion.description}}
 			</div>
 		</div>

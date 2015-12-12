@@ -11,7 +11,7 @@ function pairArray(a) {
   return arr;
 }
 
-cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll) {
+cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll, $timeout) {
 		
 	$scope.data = null;
 	
@@ -23,14 +23,13 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll) 
 	$scope.selectedUser = null;
 	$scope.selectedGenome = null;
 	$scope.selectedGeneRegion = null;
-	
+	$scope.lookingAt = 0;
 
 	//for highlighting
 	$scope.isInGeneRange= function(x){
 		if($scope.selectedGeneRegion != null)
 			return (x > $scope.selectedGeneRegion.start  ) && (x < $scope.selectedGeneRegion.end  );
-		
-		
+				
 		if(	$scope.selectedGenome != null)
 			return x == $scope.selectedGenome.index;
 	}
@@ -43,17 +42,22 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll) 
 	 
 	 $scope.scrollToGenome = function(){
 		 $scope.selectedGeneRegion = null;
-		 $scope.scrollToGene($scope.selectedGenome.index);
+		 if($scope.selectedGenome != null)$scope.scrollToGene($scope.selectedGenome.index);
 	 }
 	 
 	 $scope.scrollToGeneRegion = function(){
 		 $scope.selectedGenome = null;
-		 $scope.scrollToGene($scope.selectedGeneRegion.start);
+		 if($scope.selectedGeneRegion != null){
+			highLightRegion($scope.selectedGeneRegion);
+			$scope.scrollToGene($scope.selectedGeneRegion.start);
+		 }
 	 }
 	 
 	 $scope.scrollToGene = function (gene){
-       $location.hash(gene);
-       anchorSmoothScroll.scrollTo(gene);
+       //$location.hash(gene);
+       //anchorSmoothScroll.scrollTo(gene);
+	   $scope.lookingAt = gene;
+	   threeScrollToGene(gene);
      };
 	 
 	 $scope.getGenderPic = function(gender){
@@ -68,6 +72,7 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll) 
 		$scope.referrenceGenome = pairArray(response.data.referrenceGenome);
 		$scope.geneRegions = response.data.geneRegions;
 		$scope.users = response.data.users;
+		$scope.render();
     }, function errorCallback(response){
 		//do some logging
 		console.log("Loading Data from Local File instead (cross origin fail on local)");
@@ -77,7 +82,17 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll) 
 		$scope.reset();
 		$scope.geneRegions = $scope.data.geneRegions;
 		$scope.users = $scope.data.users;
+		$scope.render();
 	});
+	
+	$scope.render = function(){
+		renderDNA($scope.liveGenome);
+	}
+	
+	$scope.updateThreeDNA = function(){
+		updateThreeDNA($scope.referrenceGenome,$scope.liveGenome);
+	};
+
 	
 	$scope.updateDNA = function(userSequence){
 		//refresh the DNA
@@ -90,6 +105,8 @@ cApp.controller('cCtrl', function($scope, $http, $location, anchorSmoothScroll) 
 			
 			$scope.liveGenome[parseInt(userSequence[block].index/2)][secondIndex] = userSequence[block].letter;
 		}
+		
+		$scope.updateThreeDNA();
 	}
 	
 	$scope.selectUser = function(user){
