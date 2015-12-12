@@ -18,15 +18,16 @@ Usage:
 
 3) open index.html in chrome (didnt do much cross browser)
 
-Walkthrough:
+Notes:
 
-This is intended for FULL SCREEN APP.. please run it on full screen.
-Deved on 1440p monitor, anything less than 1080p may not be so good..
+This is intended for FULL SCREEN APP.. please run it on full screen. Deved on 1440p monitor, anything less than 1080p may not be so good..
 
 Navigations at the bottom, once a user is selected you may browse his/her genes/geneRegions from floating panels on left and right.
 
-genes of Interest will be highlighted in bright red with black text in contrast to the .. other color-coded a,t,g,c's.
+Genes of Interest will be highlighted in bright red with black text in contrast to the .. other color-coded a,t,g,c's.
 
-For the Zoom in and out.. I had trackball three.js thing installed but it felt like the user had too much control.
+Trackball is in this project but not activated (felt weird).
+
+with more users, we can fit about 5 user cards at the bottom and not waste so much space.
 
 cheers
